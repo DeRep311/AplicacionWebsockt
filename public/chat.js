@@ -4,7 +4,7 @@ const email = document.getElementById('Gmail')
 const mensaje= document.getElementById('mensaje')
 const chat=document.getElementById('chat')
 const btn = document.getElementById('envio')
-
+//chat
 btn.addEventListener('click', function(){
     socket.emit('mensaje',{
         menssage: mensaje.value,
@@ -12,10 +12,12 @@ btn.addEventListener('click', function(){
 
     });
     socket.on('mensajes',function (datos){
-        // chat.innerHTML=`<p> ${datos.menssage} </p> `
+        // chat.innerHTML=`<p> <strong>${datos.Gmail}: <strong> ${datos.menssage} </p> `
     })
 });
 
+
+//Se buguea o creo que recibe mal desde el back, testear correctamente
 // function obtenerPlantillaProductos(productos) {
   
 //     // return html completo de la plantilla con los productosreturn 
@@ -32,4 +34,4 @@ btn.addEventListener('click', function(){
 //     document.getElementById('TablaSalida').innerHTML = html
 // }) 
 
-//Chat
+
