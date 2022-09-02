@@ -1,3 +1,4 @@
+//Requerimientos
 const fs = require('fs');
 const app = require('./appConfig.js')
 const PORT = process.env.PORT || 8087;
@@ -5,8 +6,7 @@ const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io');
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
-
-let messages = []
+//Inicio
 const server = httpServer.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
 });
@@ -27,21 +27,26 @@ const products = [{
 }]
 io.on('connection', (socket) => {
     console.log('se conecto un cliente');
-    //para enviar 
+   
+
+ //para enviar 
     // socket.emit('productos',products)
 
-
+//Mensajes
     socket.on('mensaje',datos=>{
         try {
-          
+          //Acumular todo en una variable y sobreeescribir todo
+
           data.push(JSON.stringify(datos))
           
-           fs.writeFile('./public/chatLog.json', data,'utf-8',(err=>{
+           //intento de solucion a la escritura del json por falta de [] 
+           fs.writeFile('./public/chatLog.json', `[${data}]`,'utf-8',(err=>{
                if (err) {
                    console.log(err);
                }
                
            }))
+//Inicialmente era asincrono pero despues no le encontre mucho sentido ya que no se manejan grandes cantidades de datos
             const modificado=  fs.readFileSync('./public/chatLog.json', 'utf-8')
             
             socket.emit('mensajes', modificado)
@@ -56,7 +61,7 @@ io.on('connection', (socket) => {
 
 
 
-
+//ideas con contenedor.js
 
     // socket.on('new-message', (data) => {
     //     // messages.push(data);
